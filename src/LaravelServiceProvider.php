@@ -40,7 +40,7 @@ class LaravelServiceProvider extends ServiceProvider
                     ]
                 ]);
             });
-    }
+        }
 
     /**
      * Bootstrap any application services.
@@ -58,9 +58,7 @@ class LaravelServiceProvider extends ServiceProvider
 
         /** @var Dispatcher $eventDispatcher */
         $eventDispatcher = $this->app->make(Dispatcher::class);
-        $eventDispatcher->listen([
-            SendCustomEvent::class
-        ], CustomEventEvent::class);
+        $eventDispatcher->listen(CustomEventEvent::class, SendCustomEvent::class);
     }
 
     /**

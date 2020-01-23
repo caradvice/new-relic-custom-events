@@ -31,6 +31,8 @@ class ApiClient implements ApiClientContract
      */
     public function send(array $data = []): Response
     {
-        return $this->client->post($this->config->get('new-relic-custom-events.uri'), ['json' => $data]);
+        $uri = $this->config->get('new-relic-custom-events.uri');
+        $accountId = $this->config->get('new-relic-custom-events.account-id');
+        return $this->client->post($uri, ['json' => $data, 'accountId' => $accountId]);
     }
 }
