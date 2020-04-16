@@ -5,7 +5,9 @@ namespace CarAdvice\NewRelic\CustomEvents;
 
 
 use CarAdvice\NewRelic\CustomEvents\Contracts\ApiClientContract;
+use CarAdvice\NewRelic\CustomEvents\Events\BulkCustomEventEvent;
 use CarAdvice\NewRelic\CustomEvents\Events\CustomEventEvent;
+use CarAdvice\NewRelic\CustomEvents\Listeners\SendBulkCustomEvent;
 use CarAdvice\NewRelic\CustomEvents\Listeners\SendCustomEvent;
 use CarAdvice\NewRelic\CustomEvents\Services\NewRelic\ApiClient;
 use GuzzleHttp\Client;
@@ -59,6 +61,7 @@ class LaravelServiceProvider extends ServiceProvider
         /** @var Dispatcher $eventDispatcher */
         $eventDispatcher = $this->app->make(Dispatcher::class);
         $eventDispatcher->listen(CustomEventEvent::class, SendCustomEvent::class);
+        $eventDispatcher->listen(BulkCustomEventEvent::class, SendBulkCustomEvent::class);
     }
 
     /**
